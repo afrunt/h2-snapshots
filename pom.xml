@@ -6,7 +6,7 @@
 
     <groupId>com.afrunt.h2s</groupId>
     <artifactId>h2-snapshots</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
 
     <name>H2-Snapshots</name>
     <description>Open source making snapshots of H2 Database</description>
@@ -31,7 +31,6 @@
             <email>andrii.frunt@gmail.com</email>
         </developer>
     </developers>
-
 
     <properties>
         <java.version>11</java.version>
@@ -59,19 +58,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>net.ttddyy</groupId>
-                <artifactId>datasource-proxy</artifactId>
-                <version>${datasource-proxy.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -79,16 +65,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -100,6 +83,12 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
             <scope>test</scope>
         </dependency>
 
