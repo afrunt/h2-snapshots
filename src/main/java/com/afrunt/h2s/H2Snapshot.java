@@ -36,10 +36,6 @@ public class H2Snapshot {
         LOGGER.debug("Database restored from snapshot {}. Elapsed {}ms", dumpFilePath, System.currentTimeMillis() - started);
     }
 
-    private void saveDump(DataSource dataSource) {
-        execute(dataSource, String.format("SCRIPT TO 'file:%s'", dumpFilePath.toString()));
-    }
-
     public Path getDirPath() {
         return dirPath;
     }
@@ -54,6 +50,10 @@ public class H2Snapshot {
         } catch (IOException e) {
             throw new RuntimeException("Unable to load the contents of dump file " + dumpFilePath, e);
         }
+    }
+
+    private void saveDump(DataSource dataSource) {
+        execute(dataSource, String.format("SCRIPT TO 'file:%s'", dumpFilePath.toString()));
     }
 
     private void execute(DataSource dataSource, String query) {
