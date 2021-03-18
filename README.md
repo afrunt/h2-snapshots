@@ -5,7 +5,7 @@ Add `H2-Snaphosts` to your project. For maven projects just add this dependency:
 <dependency>
     <groupId>com.afrunt.h2s</groupId>
     <artifactId>h2-snapshots</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
 </dependency>
 ```
   

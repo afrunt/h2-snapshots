@@ -22,7 +22,7 @@
 
     <groupId>com.afrunt.h2s</groupId>
     <artifactId>h2-snapshots</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.5-SNAPSHOT</version>
 
     <name>H2-Snapshots</name>
     <description>Open source making snapshots of H2 Database</description>
@@ -59,6 +59,7 @@
         <spring-boot-dependencies.version>2.4.4</spring-boot-dependencies.version>
 
         <!--Plugins-->
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
@@ -136,6 +137,11 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
