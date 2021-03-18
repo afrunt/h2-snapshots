@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/afrunt/h2-snapshots.svg?branch=master)](https://travis-ci.org/afrunt/h2-snapshots)
+[![Build Status](https://travis-ci.org/afrunt/h2-snapshots.svg?branch=main)](https://travis-ci.org/afrunt/h2-snapshots)
 ## Java library for creating simple H2 Database snapshots
 Add `H2-Snaphosts` to your project. For maven projects just add this dependency:
 ```xml
