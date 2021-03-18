@@ -6,7 +6,7 @@
 
     <groupId>com.afrunt.h2s</groupId>
     <artifactId>h2-snapshots</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
 
     <name>H2-Snapshots</name>
     <description>Open source making snapshots of H2 Database</description>
