@@ -19,7 +19,7 @@ import com.sql.DataSource;
 final H2Snapshot initialStateSnapshot = new H2Snapshot(dataSource);
 // ...
 ```
-To apply the previous store to your database, just invoke the `apply(...)` method like shown below
+To move database to the previous state, just invoke the `apply(...)` method like shown below
 ```java
 import com.afrunt.h2s.H2Snapshot;
 import com.sql.DataSource;
