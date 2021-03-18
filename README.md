@@ -24,7 +24,7 @@ To move database to the previous state, just invoke the `apply(...)` method like
 import com.afrunt.h2s.H2Snapshot;
 import com.sql.DataSource;
 
-//Remember the previous state
+// Remember the previous state
 final H2Snapshot initialStateSnapshot = new H2Snapshot(dataSource);
 
 // ...
