@@ -33,6 +33,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
+ * This class allows you to make the snapshot of the current state of the H2 database.
+ *
  * @author Andrii Frunt
  */
 public class H2Snapshot {
@@ -41,6 +43,12 @@ public class H2Snapshot {
     private final Path dirPath;
     private final Path dumpFilePath;
 
+    /**
+     * Creates the snapshot of the current state of the H2 database in random non-existing temp directory.
+     * Dump will be automatically deleted on JVM shutdown.
+     *
+     * @param dataSource original H2 datasource
+     */
     public H2Snapshot(DataSource dataSource) {
         validateDataSource(dataSource);
         this.dirPath = createRandomTempDirectoryWithAutoDeletion();
@@ -50,6 +58,11 @@ public class H2Snapshot {
         LOGGER.debug("Snapshot saved to {}. Elapsed {}ms", dumpFilePath, System.currentTimeMillis() - started);
     }
 
+    /**
+     * Applies this snapshot to given H2 datasource. All existing data will be removed.
+     *
+     * @param dataSource H2 datasource
+     */
     public void apply(DataSource dataSource) {
         final long started = System.currentTimeMillis();
         execute(dataSource, "DROP ALL OBJECTS");
