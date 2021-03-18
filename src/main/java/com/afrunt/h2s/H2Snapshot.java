@@ -51,7 +51,7 @@ public class H2Snapshot {
      */
     public H2Snapshot(DataSource dataSource) {
         validateDataSource(dataSource);
-        this.dirPath = createRandomTempDirectoryWithAutoDeletion();
+        this.dirPath = createSnapshotDirectory();
         this.dumpFilePath = dirPath.resolve("dump.sql").toAbsolutePath();
         final long started = System.currentTimeMillis();
         saveDump(dataSource);
@@ -127,36 +127,39 @@ public class H2Snapshot {
         return directoryToBeDeleted.delete();
     }
 
-    private Path tempDirectoryPath() {
-        return Path.of(System.getProperty("java.io.tmpdir"));
+    private Path createSnapshotDirectory() {
+        return deleteDirectoryOnShutdown(
+                createDirectories(
+                        randomNonExistingDirectoryPath(Path.of(System.getProperty("java.io.tmpdir")))
+                )
+        );
     }
 
-    private Path createRandomTempDirectoryWithAutoDeletion() {
-        return createRandomTempDirectory(true);
-    }
-
-    private Path createRandomTempDirectory(boolean autoDeletion) {
-        Path tempDirectoryPath = tempDirectoryPath();
-
-        Path dirPath;
-
+    private Path randomNonExistingDirectoryPath(Path root) {
+        Path path;
         do {
-            dirPath = tempDirectoryPath.resolve(UUID.randomUUID().toString());
-        } while (dirPath.toFile().exists());
+            path = root.resolve(UUID.randomUUID().toString());
+        } while (path.toFile().exists());
 
+        return path;
+    }
+
+    private Path createDirectories(Path path) {
         try {
-            Files.createDirectories(dirPath);
-            if (autoDeletion) {
-                final Path pathToDelete = dirPath;
-                Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                            deleteDirectory(pathToDelete);
-                            LOGGER.debug("Temporary directory {} deleted", pathToDelete.toAbsolutePath());
-                        })
-                );
-            }
-            return dirPath.toAbsolutePath();
+            return Files.createDirectories(path);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to create directory " + dirPath.toAbsolutePath(), e);
+            throw new RuntimeException("Failed to create directory " + path.toAbsolutePath(), e);
         }
+    }
+
+    private Path deleteDirectoryOnShutdown(Path pathToDelete) {
+        final Runnable deleteAction = () -> {
+            final boolean success = deleteDirectory(pathToDelete);
+            LOGGER.debug("Temporary directory {} deleted {}", pathToDelete.toAbsolutePath(), success);
+        };
+
+        Runtime.getRuntime().addShutdownHook(new Thread(deleteAction));
+
+        return pathToDelete;
     }
 }
