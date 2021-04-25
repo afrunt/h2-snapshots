@@ -25,7 +25,7 @@
     <version>0.5-SNAPSHOT</version>
 
     <name>H2-Snapshots</name>
-    <description>Open source making snapshots of H2 Database</description>
+    <description>Open source library for making snapshots of H2 Database</description>
     <url>https://github.com/afrunt/h2-snapshots</url>
 
     <licenses>
